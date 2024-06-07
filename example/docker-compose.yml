@@ -96,6 +96,18 @@ services:
     networks:
       apisix:
 
+  dashboard:
+    image: "apache/apisix-dashboard:latest"
+    restart: always
+    volumes:
+      - ./dashboard_conf/conf.yaml:/usr/local/apisix-dashboard/conf/conf.yaml:ro
+    depends_on:
+      - etcd
+    ports:
+      - "9000:9000/tcp"
+    networks:
+      - apisix
+
 networks:
   apisix:
     driver: bridge
